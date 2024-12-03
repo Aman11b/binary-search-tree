@@ -86,6 +86,7 @@ const Tree=(array)=>{
                 return null;
             }
 
+            //SEARCH THE NODE
             if(val<node.data){
                 node.left=deleteNode(node.left,val);
                 return node;
@@ -94,10 +95,12 @@ const Tree=(array)=>{
                 return node;
             }
 
+            // NO CHILD
             if(node.left===null && node.right===null){
                 return null;
             }
 
+            //ONE CHILD
             if(node.left===null){
                 return node.right;
             }
@@ -105,6 +108,7 @@ const Tree=(array)=>{
                 return node.left
             }
 
+            //TWO CHILD
             const minRight=findMinNode(node.right);
             node.data=minRight.data;
             node.right=deleteNode(node.right,minRight.data);
@@ -113,13 +117,94 @@ const Tree=(array)=>{
 
         root=deleteNode(root,value);
         return root;
-    }
+    };
+
+    // Level-Order traversal
+    const levelOrder=()=>{
+        if(root===null) return [];
+
+        const result=[];
+
+        const queue=[root];
+
+        while(queue.length>0){
+            const currentNode=queue.shift();
+            result.push(currentNode.data);
+
+            if(currentNode.left!=null){
+                queue.push(currentNode.left);
+            }
+
+            if(currentNode.right!==null){
+                queue.push(currentNode.right);
+            }
+        }
+
+        return result;
+    };
+
+    const inOrder=()=>{
+        const result=[];
+
+        const traverse=(node)=>{
+
+            if(!node) return;
+
+            if(node.left) traverse(node.left);
+            result.push(node.data);
+            if(node.right) traverse(node.right);
+            
+        };
+
+        if(root) traverse(root);
+        return result;
+    };
+
+    const preOrder=()=>{
+        const result=[];
+
+        const traverse=(node)=>{
+            if(!node) return;
+
+            result.push(node.data);
+
+            if(node.left) traverse(node.left);
+            
+            if(node.right) traverse(node.right);
+        };
+
+        if(root) traverse(root);
+        return result;
+    };
+
+    const postOrder=()=>{
+        const result=[];
+
+        const traverse=(node)=>{
+
+            if(!node) return;
+
+            if(node.left) traverse(node.left);
+            
+            if(node.right) traverse(node.right);
+
+            result.push(node.data);
+            
+        };
+
+        if(root) traverse(root);
+        return result;
+    };
 
     return{
         get root(){return root},
         insert,
         find,
         deleteItem,
+        levelOrder,
+        inOrder,
+        preOrder,
+        postOrder
     };
 };
 

@@ -3,12 +3,13 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node bst.js",
     "test": "node test.js",
     "test:insert": "node test-insert.js",
     "test:find": "node test-find.js",
-    "test:delete": "node test-delete.js"
+    "test:delete": "node test-delete.js",
+    "test:level-order": "node test-level-order.js",
+    "test:traversals": "node test-traversals.js"
   },
   "keywords": [],
   "author": "",
