@@ -49,7 +49,7 @@ const Tree=(array)=>{
         };
         root=insertNode(root,value);
         return root;
-    }
+    };
 
     const find=(value)=>{
         const searchNode=(node,val)=>{
@@ -69,13 +69,57 @@ const Tree=(array)=>{
         };
 
         return searchNode(root,value);
-    }
+    };
 
+    const findMinNode=(node)=>{
+        let current=node;
+        while(current.left!==null){
+            current=current.left;
+        }
+
+        return current;
+    };
+
+    const deleteItem=(value)=>{
+        const deleteNode=(node,val)=>{
+            if(node===null){
+                return null;
+            }
+
+            if(val<node.data){
+                node.left=deleteNode(node.left,val);
+                return node;
+            }else if(val>node.data){
+                node.right=deleteNode(node.right,val);
+                return node;
+            }
+
+            if(node.left===null && node.right===null){
+                return null;
+            }
+
+            if(node.left===null){
+                return node.right;
+            }
+            if(node.right===null){
+                return node.left
+            }
+
+            const minRight=findMinNode(node.right);
+            node.data=minRight.data;
+            node.right=deleteNode(node.right,minRight.data);
+            return node;
+        };
+
+        root=deleteNode(root,value);
+        return root;
+    }
 
     return{
         get root(){return root},
         insert,
-        find
+        find,
+        deleteItem,
     };
 };
 
