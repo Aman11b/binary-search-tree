@@ -21,8 +21,40 @@ const Tree=(array)=>{
         return rootNode;
     };
 
+    let root=buildTree(cleanArray);
+
+    const insert=(value)=>{
+        if(root===null){
+            root=Node(value);
+            return root;
+        }
+
+        const insertNode=(node,newValue)=>{
+            if(node===null){
+                return Node(newValue);
+            }
+
+            // Prevent duplicates
+            if (newValue === node.data) {
+                return node;
+            }
+
+            if(newValue<node.data){
+                node.left=insertNode(node.left,newValue);
+            }else{
+                node.right=insertNode(node.right,newValue);
+            }
+
+            return node;
+        };
+
+        root=insertNode(root,value);
+        return root;
+    }
+
     return{
-        root:buildTree(cleanArray),
+        get root(){return root},
+        insert
     };
 };
 
