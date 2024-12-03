@@ -196,6 +196,75 @@ const Tree=(array)=>{
         return result;
     };
 
+    const height=(node)=>{
+        if(!node) return -1;
+
+        const leftHeight=height(node.left);
+        const rightHeight=height(node.right);
+
+        return Math.max(leftHeight,rightHeight)+1;
+    };
+
+    const depth=(node)=>{
+        if(!node || !root) return -1;
+
+        const findDepth=(currentNode,targetNode,currentDepth)=>{
+            if(!currentNode) return -1;
+
+            if(currentNode===targetNode) return currentDepth;
+
+            if(currentNode.left){
+                const leftDepth=findDepth(currentNode.left,targetNode,currentDepth+1);
+                if(leftDepth!==-1) return leftDepth;
+            }
+            
+            if(currentNode.right){
+                const rightDepth=findDepth(currentNode.right,targetNode,currentDepth+1);
+                if (rightDepth !== -1) return rightDepth;
+            }
+
+            return -1;
+            
+        };
+
+        return findDepth(root,node,0);
+    };
+
+    const isBalance=()=>{
+
+        const checkBalance=(node)=>{
+            if(!node) return{balanced:true ,height:-1}
+
+            const left=checkBalance(node.left);
+            if(!left.balanced) return {balanced:false, 
+            height:0}
+
+            const right=checkBalance(node.right);
+            if(!right.balanced) return{
+                balanced:false,
+                height:0
+            };
+
+            const heightDiff=Math.abs(left.height-right.height);
+            const balanced=heightDiff<=1;
+
+            return{
+                balanced,
+                height:Math.max(left.height,right.height)+1
+            };
+        };
+
+        if(!root) return true;
+        return checkBalance(root).balanced;
+    };
+
+    const rebalance=()=>{
+        const values=inOrder();
+        
+        root=buildTree(values);
+        return root;
+    }
+
     return{
         get root(){return root},
         insert,
@@ -204,7 +273,11 @@ const Tree=(array)=>{
         levelOrder,
         inOrder,
         preOrder,
-        postOrder
+        postOrder,
+        height,
+        depth,
+        isBalance,
+        rebalance
     };
 };
 

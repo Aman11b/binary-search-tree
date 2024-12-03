@@ -9,7 +9,8 @@
     "test:find": "node test-find.js",
     "test:delete": "node test-delete.js",
     "test:level-order": "node test-level-order.js",
-    "test:traversals": "node test-traversals.js"
+    "test:traversals": "node test-traversals.js",
+    "test:properties": "node test-tree-properties.js"
   },
   "keywords": [],
   "author": "",
