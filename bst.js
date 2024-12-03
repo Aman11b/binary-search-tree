@@ -47,14 +47,35 @@ const Tree=(array)=>{
 
             return node;
         };
-
         root=insertNode(root,value);
         return root;
     }
 
+    const find=(value)=>{
+        const searchNode=(node,val)=>{
+            if(node===null){
+                return null;
+            }
+
+            if(node.data===val){
+                return node;
+            }
+
+            if(val<node.data){
+                return searchNode(node.left,val);
+            }else{
+                return searchNode(node.right,val);
+            }
+        };
+
+        return searchNode(root,value);
+    }
+
+
     return{
         get root(){return root},
-        insert
+        insert,
+        find
     };
 };
 
